@@ -1,5 +1,6 @@
 ---
 - import_playbook: playbooks/common.yml
+  remote_src: true
 - include: playbooks/bastion.yml
   when: ansible_role == "bastion"
 - include: playbooks/frontend.yml
