@@ -3,5 +3,5 @@
   connection: local
   hosts: localhost
   become: root
-  roles:
+  role:
     - common
