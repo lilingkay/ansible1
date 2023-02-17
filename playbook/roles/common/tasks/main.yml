@@ -14,7 +14,7 @@
 - name : Change ssh port to 6522
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: "Port 22"
+    regex: "Port 22"
     line: "Port 6522"
     state: present
 

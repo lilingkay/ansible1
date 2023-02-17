@@ -2,6 +2,6 @@
 - name: Common playbook
   connection: local
   hosts: localhost
-  become: root
+  become: yes
   roles:
     - common

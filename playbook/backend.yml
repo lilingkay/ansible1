@@ -2,6 +2,6 @@
 - name: Backend playbook
   connection: local
   hosts: localhost
-  become: root
+  become: yes
   roles:
     - backend

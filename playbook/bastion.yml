@@ -2,12 +2,6 @@
 - name: Bastion playbook
   connection: local
   hosts: localhost
-  become: root
+  become: yes
   roles:
     - bastion
-  tasks:
-    - name: Set NOPASSWD
-      lineinfile: 
-        path: /etc/sudoers
-        regexp: '^%sudo'
-        line: '%sudo   ALL=(ALL:ALL) NOPASSWD:ALL'

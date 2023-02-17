@@ -2,6 +2,6 @@
 - name: Frontend playbook
   connection: local
   hosts: localhost
-  become: root
+  become: yes
   roles:
     - frontend
