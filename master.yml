@@ -1,0 +1,8 @@
+---
+- name: Configure EC2
+  hosts: default
+  become: yes
+  roles:
+    - common
+    - frontend
+    - backend
