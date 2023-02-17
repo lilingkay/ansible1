@@ -1,0 +1,7 @@
+---
+- name: Backend playbook
+  connection: local
+  hosts: localhost
+  become: root
+  roles:
+    - backend
