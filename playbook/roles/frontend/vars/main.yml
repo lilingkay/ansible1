@@ -1,5 +1,5 @@
 ---
-packages:
+installpackages:
   - apache2
   - mysql-client
   - php
