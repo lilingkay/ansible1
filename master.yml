@@ -1,8 +1,8 @@
 ---
-- import_playbook: playbooks/common.yml
-- include: playbooks/bastion.yml
+- import_playbook: playbook/common.yml
+- include: playbook/bastion.yml
   when: ansible_role == "bastion"
-- include: playbooks/frontend.yml
+- include: playbook/frontend.yml
   when: ansible_role == "frontend"
-- include: playbooks/backend.yml
+- include: playbook/backend.yml
   when: ansible_role == "backend"
