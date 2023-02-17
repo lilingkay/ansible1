@@ -11,7 +11,7 @@
     backup: yes
 
 - name : Change ssh port to 6520
-  lininfile:
+  lineinfile:
     path: /etc/ssh/sshd_config
     regexp: "Port 22"
     line: "Port 6522"
