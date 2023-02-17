@@ -1,2 +1,6 @@
 ---
+packages:
+  - apache2
+  - mysql-client
+  - php
 # vars file for frontend
