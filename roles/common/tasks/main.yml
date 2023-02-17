@@ -26,7 +26,6 @@
   copy:
     src: /etc/logrotate.conf
     dest: /etc/logrorate.d/ 
-    mode: 0600
 
 - name: install packages
   apt:
@@ -52,7 +51,12 @@
     path: /etc/shadow
     state: file
     mode: "0400"
-     
+ 
+- name: Change file permission for /var/log/syslog
+  file:
+    path: /var/log/syslog
+    state: file
+    mode: "0600"
       
      
       
