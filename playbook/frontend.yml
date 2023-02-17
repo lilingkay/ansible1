@@ -1,0 +1,7 @@
+---
+- name: Frontend playbook
+  connection: local
+  hosts: localhost
+  become: root
+  roles:
+    - frontend
