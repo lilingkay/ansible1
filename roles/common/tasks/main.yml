@@ -1,2 +1,54 @@
 ---
+   - name: update OS
+     register: updatesys
+     apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+   - name : Change ssh port to 6520
+     set_fact:
+      ansible_port: 6520
+   - name: Restart sshd
+     service: 
+      name: sshd
+      state: restarted
+   - name: Create logrotate config file
+     file:
+      path: /etc/logrorate.d/ 
+      state: touch
+      mode: 0644
+   - name: install packages
+     apt:
+      name: wget
+      state: present
+     apt:
+      name: unzip
+      state: present
+     apt:
+      name: curl
+      state: present
+     apt: 
+      name: git
+      state: present
+     apt:
+      name: jq
+      state: present
+   - name: create user
+     user: name=apple
+           state=present
+   -name: Give sudo access to apple
+    blockinfile:
+        path: /etc/sudoers
+        insertafter: 'root    ALL=(ALL)       ALL'
+        block: |
+          # Gives sudo access to the devops group
+          %devops        ALL=(ALL)       NOPASSWD: ALL
+         
+           
+     
+      
+     
+      
+      
+     
 # tasks file for common
