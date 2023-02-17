@@ -1,2 +1,13 @@
 ---
+installpackages:
+  - wget
+  - unzip
+  - curl
+  - git
+  - jq
+users:
+  - apple
+  - banana
+  - carrot
+ 
 # vars file for common
