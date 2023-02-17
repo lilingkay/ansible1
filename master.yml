@@ -1,8 +1,8 @@
 ---
-- name: Configure EC2
-  hosts: default
-  become: yes
-  roles:
-    - common
-    - frontend
-    - backend
+- import_playbook: playbooks/common.yml
+- include: playbooks/bastion.yml
+  when: ansible_role == "bastion"
+- include: playbooks/frontend.yml
+  when: ansible_role == "frontend"
+- include: playbooks/backend.yml
+  when: ansible_role == "backend"
