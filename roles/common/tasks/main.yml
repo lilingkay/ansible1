@@ -1,50 +1,57 @@
 ---
-   - name: update OS
-     register: updatesys
-     apt:
-      name: "*"
-      state: latest
-      update_cache: yes
-   - name : Change ssh port to 6520
-     set_fact:
-      ansible_port: 6520
-   - name: Restart sshd
-     service: 
-      name: sshd
-      state: restarted
-   - name: Create logrotate config file
-     file:
-      path: /etc/logrorate.d/ 
-      state: touch
-      mode: 0644
-   - name: install packages
-     apt:
-      name: wget
-      state: present
-     apt:
-      name: unzip
-      state: present
-     apt:
-      name: curl
-      state: present
-     apt: 
-      name: git
-      state: present
-     apt:
-      name: jq
-      state: present
-   - name: create user
-     user: name=apple
-           state=present
-   -name: Give sudo access to apple
-    blockinfile:
-        path: /etc/sudoers
-        insertafter: 'root    ALL=(ALL)       ALL'
-        block: |
-          # Gives sudo access to the devops group
-          %devops        ALL=(ALL)       NOPASSWD: ALL
-         
-           
+- name: update all packages
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Copy sshd_config file
+  copy:
+    src: /etc/ssh/sshd_config
+    dest: /etc/ssh/sshd_config
+    backup: yes
+
+- name : Change ssh port to 6520
+  lininfile:
+    path: /etc/ssh/sshd_config
+    regexp: "Port 22"
+    line: "Port 6522"
+    state: present
+
+- name: Restart sshd
+  service: 
+    name: sshd
+    state: restarted
+
+- name: Create logrotate config file
+  copy:
+    src: /etc/logrotate.conf
+    dest: /etc/logrorate.d/ 
+    mode: 0600
+
+- name: install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    - "{{ intallpackages }}"
+
+- name: Add users with sudo permission
+  user:
+    name: ansible-user
+    groups: sudo
+
+- name: Add users
+  user: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ users }}"
+ 
+- name: Change file permission for /etc/shadow
+  file:
+    path: /etc/shadow
+    state: file
+    mode: "0400"
      
       
      
