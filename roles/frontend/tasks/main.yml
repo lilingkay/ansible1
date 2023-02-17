@@ -1,2 +1,52 @@
 ---
+- name: Install additional packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ installpackages }}"
+
+- name: Creates directory
+  file:
+    path: /tmp/fefiles
+    state: directory
+
+- name: Copy web server file
+  command: aws s3 cp s3://skillup-malcedo-frontend-s3/frontend.zip /tmp/fefiles/frontend.zip
+
+- name: Clean /var/www/html
+  file:
+    path: /var/www/html/
+    state: absent
+
+- name: Create /var/www/html
+  file:
+    path: /var/www/html/
+    state: directory
+
+- name: Unzip web server file
+  unarchive:
+    src: /tmp/fefiles/frontend.zip
+    dest: /var/www/html
+
+- name: Creates directory
+  file:
+    path: /tmp/fefiles
+    state: absent
+
+- name: Start apache
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: Remove Users
+  user:
+    name: "carrot"
+    state: absent
+    remove: true
+     
+
+
+# tasks file for roles/frontend
 # tasks file for frontend
