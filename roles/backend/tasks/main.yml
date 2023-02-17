@@ -1,2 +1,42 @@
 ---
-# tasks file for backend
+---
+- name: Install apache2 package
+  apt:
+    name: "apache2"
+    state: present
+
+- name: Creates directory
+  file:
+    path: /tmp/befiles
+    state: directory
+
+- name: Copy web server file
+  command: aws s3 cp s3://skillup-malcedo-backend-s3/backend.zip /tmp/befiles/backend.zip
+
+- name: Clean /var/www/html
+  file:
+    path: /var/www/html/
+    state: absent
+
+- name: Create /var/www/html
+  file:
+    path: /var/www/html/
+    state: directory
+
+- name: Unzip web server
+  unarchive:
+    src: /tmp/befiles/backend.zip
+    dest: /var/www/html
+
+- name: Creates directory
+  file:
+    path: /tmp/befiles
+    state: absent
+
+- name: Start apache
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+# tasks file for roles/backend
