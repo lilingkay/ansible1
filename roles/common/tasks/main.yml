@@ -33,7 +33,7 @@
     name: "{{ item }}"
     state: present
   with_items: 
-    - "{{ intallpackages }}"
+    - "{{ installpackages }}"
 
 - name: Add users with sudo permission
   user:
